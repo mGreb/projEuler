@@ -15,23 +15,9 @@
 #include <stdio.h>
 #include <conio.h>
 
-enum ones
-{
-	one = 1,
-	two = 2,
-	three = 3,
-	four = 4,
-	five = 5,
-	six = 6,
-	seven = 7,
-	eight = 8,
-	nine = 9
-};
-
 int getThousands(int a)
 {
 	int res = 0;
-
 	return res;
 }
 
@@ -43,7 +29,7 @@ int getLetNumOnes(int a)
 		res = 3;//one, two, six - three letters
 		return res;
 	}
-	if ((a == 3) || (a == 7) || (a == 9))
+	if ((a == 3) || (a == 7) || (a == 8))
 	{
 		res = 5;//three, seven, eight - five letters
 		return res;
@@ -75,7 +61,7 @@ int getLetNumTens(int a)
 		res = 8;
 		return res;
 	}
-	if ((a == 15) || (a == 15))
+	if ((a == 15) || (a == 16))
 	{
 		res = 7;
 		return res;
@@ -86,12 +72,12 @@ int getLetNumTens(int a)
 		return res;
 	}
 	//twenty - ninety
-	if ((a == 20) || (a == 30) || (a == 40) || (a == 80) || (a == 90))
+	if ((a == 20) || (a == 30)|| (a == 80) || (a == 90))
 	{
 		res = 6;
 		return res;
 	}
-	if ((a == 50) || (a == 60))
+	if ((a == 40) || (a == 50) || (a == 60))
 	{
 		res = 5;
 		return res;
@@ -107,25 +93,45 @@ int getLetNumTens(int a)
 int getLetNum(int a)
 {
 	int ones = a % 10;
-	int tens = (a - ones) % 100 / 10;
+	int tens = (a - ones) % 100;
 	int hundreds = (a - ones - tens) % 1000 / 100;
 	int thousands = (a - ones - tens - hundreds) % 10000 / 1000;
-	printf("%d\n", ones);
-	printf("%d\n", tens);
-	printf("%d\n", hundreds);
-	printf("%d\n", thousands);
-	int and = 3;
+	int andLet = 3;
 	int hundred = 7;
 	int thousand = 8;
+	bool isTeen = false;
 	int res = 0;
-	
+	if (thousands == 1)
+	{
+		res += 3 + thousand;//one thousand
+	}
+	if (hundreds != 0)
+	{
+		res += getLetNumOnes(hundreds) + hundred;//something hundreds
+	}
+	if (((tens != 0) || (ones != 0)) && ((thousands != 0) || (hundreds != 0)))
+	{
+		res += andLet;//adding and if there is some hundreds and thousands
+	}
+	if ((tens != 0) && (tens < 20) && (ones != 0))
+	{
+		res += getLetNumTens(tens + ones);//***teen something
+		isTeen = true;
+	}
+	if (isTeen == false)
+	{
+		res += getLetNumTens(tens) + getLetNumOnes(ones);//not ***teen case
+	}
 	return res;
 }
 
 int main()
 {
 	int result = 0;
-	result = getLetNum(1030);
+	for (int i = 1; i <= 1000; i++)
+	{
+		result += getLetNum(i);
+	}
 	printf("Result: %d\n", result);
 	_getch();
 	return 0;

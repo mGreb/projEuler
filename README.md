@@ -1,4 +1,4 @@
 projEuler
 =========
 
-project Euler solutions in c++
+project Euler problems solved with programming

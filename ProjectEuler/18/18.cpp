@@ -34,8 +34,49 @@
 //containing one-hundred rows; it cannot be solved by brute force, and requires a 
 //clever method! ;o)
 
+#include <stdio.h>
+#include <malloc.h>
+
+int elemNum(int a)
+{
+	int res = 0;
+	for (int i = 1; i <= a; i++)
+	{
+		res += i;
+	}
+	return res;
+}
+
 int main(int argc, char const *argv[])
 {
-	
+	const char* filePath = "18.txt";
+	const char* mode = "r";
+	FILE* file;
+	file = fopen(filePath, mode);
+	int readLength = 3;
+	char* buffer = (char*)calloc(readLength, sizeof(char));
+	int num = 0;//height of the triangle
+	fread(buffer, sizeof(char), readLength, file);
+	num = atoi(buffer);
+	int elemQuantity = elemNum(num);//total amount of elements in the triangle
+	printf("Height of the triangle: %d\n", num);
+	printf("Quantity of elements: %d\n", elemQuantity);
+	int* arr = (int*)calloc(elemQuantity, sizeof(int));
+	for (int i = 0; i < elemQuantity; i++)
+	{
+		fread(buffer, sizeof(char), readLength, file);
+		arr[i] = atoi(buffer);
+	}
+	int k = 0;
+	for (int i = 0; i < num; i++)
+	{
+		for (int j = 0; j <= i; j++)
+		{
+			printf("%d ", arr[k]);
+			k++;
+		}
+		printf("\n");
+	}
+
 	return 0;
 }

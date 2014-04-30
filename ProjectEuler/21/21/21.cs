@@ -18,24 +18,28 @@ namespace _21
 			dArr = new int[bord];
 			dArr1 = new int[bord];
 			result = 0;
-			fillArrayWithDivisorsSum(dArr);
-			countSum();
+			result = countSum();
 		}
 
-		private void countSum()
+		private int countSum()
 		{
+			int temp1 = 0;
+			int temp2 = 0;
+			int sum = 0;
 
+			for(int i = 1; i <= bord; i++)
+			{
+				temp1 = getDivisorsSum(i);
+				temp2 = getDivisorsSum(temp1);
+				if (temp2 == i)
+				{
+					sum += temp1;
+					sum += temp2;
+					Console.WriteLine(i + " " + temp1 + " " + temp2 + " " + sum);
+				}
+			}
+			return sum;
 		}
-
-		//private void countSum()
-		//{
-		//	Array.Sort(dArr);
-		//	Array.Sort(dArr1);
-		//	for (int i = 0; i < dArr.Length; i++)
-		//	{
-		//		if ()
-		//	}
-		//}
 
 		private int getDivisorsSum(int input)
 		{

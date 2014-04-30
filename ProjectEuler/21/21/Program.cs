@@ -26,5 +26,6 @@ class Program
 	{
 		sumClass MySumClass = new sumClass();
 		Console.WriteLine(MySumClass.getResult());
+		Console.ReadKey();
 	}
 }

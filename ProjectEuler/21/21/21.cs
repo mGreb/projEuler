@@ -25,17 +25,22 @@ namespace _21
 		{
 			int temp1 = 0;
 			int temp2 = 0;
+			int temp3 = 0;
 			int sum = 0;
 
-			for(int i = 1; i <= bord; i++)
+			for(int i = 1; i < bord; i++)
 			{
 				temp1 = getDivisorsSum(i);
 				temp2 = getDivisorsSum(temp1);
-				if (temp2 == i)
+				if ((temp2 == i) && (temp1 != temp3))
 				{
-					sum += temp1;
-					sum += temp2;
-					Console.WriteLine(i + " " + temp1 + " " + temp2 + " " + sum);
+					if (temp1 != temp2)
+					{
+						sum += temp1;
+						sum += temp2;
+						Console.WriteLine(i + " " + temp1 + " " + temp2 + " " + sum);
+					}
+					temp3 = i;
 				}
 			}
 			return sum;

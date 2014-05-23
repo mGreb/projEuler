@@ -13,39 +13,32 @@
 //
 //What is the total of all the name scores in the file?
 
-#include <cstdio>
+#include <stdio.h>
 
-const int size = 20;
+#define size 20
+
+typedef struct name name;
 
 struct name
 {
+	char thisIsName[size];
 	name* prevName;
 	name* nextName;
-	char thisIsName[size];
-} sFirstName;
+	//int a;
+};
 
-bool compare (char a[size], char b[size])
-{
-	bool AisBigger = true;
-	int i = 0;
-	for (i = 0; i < size; i++)
-	{
-		if (a[i]<b[i])
-		{
-			AisBigger = false;
-			return AisBigger;
-		}
-	}
-	return AisBigger;
-}
+
 
 char* getName(const char* fileName)
 {
+	char symbol;
+	char name[size];
+	int i;
 	FILE *fp;
 	fopen_s( &fp, fileName, "r");
-	char symbol = '0';
-	char name[size] = {'0'};
-	int i = 0;
+	symbol = '0';
+	name[0] = '0';
+	i = 0;
 	while (symbol != EOF)
 	{
 		symbol = fgetc(fp);

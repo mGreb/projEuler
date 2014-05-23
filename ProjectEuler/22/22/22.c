@@ -24,10 +24,7 @@ struct name
 	char thisIsName[size];
 	name* prevName;
 	name* nextName;
-	//int a;
 };
-
-
 
 char* getName(const char* fileName)
 {

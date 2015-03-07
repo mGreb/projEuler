@@ -19,8 +19,6 @@
 #define true 1
 #define false 0
 
-int compare (char*, char*, int);
-
 int main ()
 {
 	FILE* fileWithNames; 			 // pointer fo file structure
@@ -92,14 +90,6 @@ int main ()
 			j++;
 		}
 	}
-	/*for (i = 0; i < nameCount; ++i)
-	{
-		for (j = 0; j < maxNameLength; j++)
-		{
-			printf ("%c", listOfAllNames[i][j]);
-		}
-		printf ("\n");
-	}*/
 	fclose (fileWithNames);
 	// -------------------------------------------------------------------------
 
@@ -109,9 +99,8 @@ int main ()
 	for (i = 0; i < nameCount; i++)
 	{
 		for (j = i; j < nameCount; j++)
-		{
-			if (compare (listOfAllNames[i], listOfAllNames[j], maxNameLength)
-				 == 0)
+		{	
+			if ( strcmp(listOfAllNames[i], listOfAllNames[j]) > 0)
 			{
 				for (k = 0; k < maxNameLength; k++)
 				{
@@ -122,14 +111,6 @@ int main ()
 			}
 		}
 	}
-	for (i = 0; i < nameCount; ++i)
-	{
-		for (j = 0; j < maxNameLength; j++)
-		{
-			printf ("%c", listOfAllNames[i][j]);
-		}
-		printf ("\n");
-	}
 	int* valueArray = (int*) calloc (nameCount, sizeof (int));
 	for (i = 0; i < nameCount; i++)
 	{
@@ -138,15 +119,25 @@ int main ()
 			if ((listOfAllNames[i][j] <= 'Z') && (listOfAllNames[i][j] >= 'A'))
 			{
 				valueArray[i] += listOfAllNames[i][j] - 'A' + 1;
-				//printf ("%c ", listOfAllNames[i][j]);
 			}
 		}
-		//printf ("%d\n", valueArray[i]);
 	}
-	/*for (i = 0; i < nameCount; i++)
+	for (i = 0; i < nameCount; ++i)
 	{
-		printf("%d\n", valueArray[i]);
-	}*/
+		for (j = 0; j < maxNameLength; j++)
+		{
+			printf ("%c", listOfAllNames[i][j]);
+		}
+		printf ("\t\t");
+		for (j = 0; j < maxNameLength; j++)
+		{
+			if (listOfAllNames[i][j] > 0)
+			{
+				printf ("%d ", listOfAllNames[i][j]);
+			}
+		}
+		printf ("\n");
+	}
 	// -------------------------------------------------------------------------
 
 	// calculate answer --------------------------------------------------------
@@ -155,35 +146,8 @@ int main ()
 	{
 		answer += (i + 1) * valueArray[i];
 	}
-	printf("%d\n", answer);
+	printf ("Answer is: %ld\n", answer);
 	// -------------------------------------------------------------------------
-	return 0;
-}
-
-int compare (char* a, char* b, int length)
-{
-	int i = 0;
 	
-	/*printf ("Compairing ");
-	for (i = 0; i < length; ++i)
-	{
-		printf ("%c", a[i]);
-	}
-	printf(" and ");
-	for (i = 0; i < length; ++i)
-	{
-		printf ("%c", b[i]);
-	}
-	printf("\n");*/
-
-	for (i = 0; i < length; i++)
-	{
-		if (a[i] < b[i])
-		{
-			//printf("b is bigger\n");
-			return 1;
-		}
-	}
-	//printf("a is bigger\n");
 	return 0;
 }

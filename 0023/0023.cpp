@@ -19,12 +19,8 @@
 // Find the sum of all the positive integers which cannot be written as the
 // sum of two abundant numbers.
 
-#include <cstdio>
+#include <iostream>
 #include <vector>
-#include <array>
-#include <cmath>
-
-#include <omp.h>
 
 bool is_abundant(
     const size_t a
@@ -42,39 +38,31 @@ bool is_abundant(
 
 int main(
 ) {
-    double begin = omp_get_wtime();
     // find all abundant numbers from 1 to 28123
     std::vector<size_t> abundants;
     for (size_t i = 1; i <= 28123; ++i)
         if (is_abundant(i))
             abundants.push_back(i);
-    double end = omp_get_wtime();
-    printf("Calc abundants: %lf\n", end - begin);
     
-    begin = omp_get_wtime();
     // find sum of all numbers
     size_t total_numbers_sum = 0;
     for (size_t i = 1; i <= 28123; ++i)
         total_numbers_sum += i;
-    end = omp_get_wtime();
-    printf("Sum numbers: %lf sec.\n", end - begin);
     
-    begin = omp_get_wtime();
     // mark all numbers that can be presented as sum of two abundant numbers
     std::vector<bool> sums(abundants.back() * 2, false);
     for (size_t i = 0; i < abundants.size(); ++i)
         for (size_t j = 0; j < abundants.size(); ++j)
             sums[abundants[i] + abundants[j]] = true;
+    
     // sum them
     size_t sum = 0;
     for (size_t i = 0; i <= 28123; ++i)
         if (sums[i])
             sum += i;
-    end = omp_get_wtime();
-    printf("Solve: %lf sec.\n", end - begin);
     
     // subtract one from another to get result
-    printf("Result: %zu\n", total_numbers_sum - sum);
+    std::cout << "Result: " << total_numbers_sum - sum << "\n";
     
     return 0;
 }

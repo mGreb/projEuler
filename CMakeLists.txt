@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(projEuler)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_compile_options("-Wall")
 
@@ -27,3 +28,4 @@ add_subdirectory(0019)
 add_subdirectory(0020)
 add_subdirectory(0021)
 add_subdirectory(0022)
+add_subdirectory(0023)
